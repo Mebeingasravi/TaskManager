@@ -1,14 +1,14 @@
 var usermodole = require('./../models/users');
 var userM = usermodole;
 
-module.exports.getUsers = function(callback,limit){
+module.exports.getUsers = function(callback, limit){
     console.log('getUsers Users from module');
-    userM.find(callback).limit(limit);
+    userM.find().limit(limit).exec(callback);
 };
 
 module.exports.getUsersById = function(callback,limit){
     console.log('getUserById from module');
-    userM.findById(callback);
+    userM.findById('5be8897ffb6fc06239e11081').exec(callback);
 };
 
 module.exports.createUser = function(){
@@ -16,10 +16,12 @@ module.exports.createUser = function(){
 };
 
 module.exports.updateOne = function(){
-    userM.findOne({email:'abcd@gmail.com'}, function(err, res){
+    var conditions = {email:'mebeingasravi@gmail.com'};
+    var update = {fname:'updaed_name_updateOne'};
+    var option = {multi: false};
+
+    userM.updateOne(conditions, update, (err, res)=>{
         if(err) console.log(err);
-        res.fname = 'test_update';
-        res.save();
-        console.log('successfully updated');
+        console.log(`Affected Row ${res.modifiedCount}`);
     });
 };

@@ -3,10 +3,18 @@ const router=express.Router();
 const dbConfig = require('./../config/db');
 const users = require('./../controller/users');
 
-router.get('/', function(req,res){
-    users.getUsers(function(err,users){
+router.get('/', function(req, res){
+    users.getUsers(function(err, users){
         console.log('get user function from / router of users');
         res.send(users);
+    });
+});
+
+router.get('/a', function(req,res){
+    console.log(':id users reached');
+    users.getUsersById(function(err, users){
+        if(err) console.log(err);
+    res.send(users);
     });
 });
 
